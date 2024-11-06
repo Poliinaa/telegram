@@ -9,7 +9,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Приветственное сообщение и создание клавиатуры
     keyboard = [
         [KeyboardButton("Первая помощь"), KeyboardButton("Профилактика травм")],
-        [KeyboardButton("Обучение детей безопасности"), KeyboardButton("Квиз")]
+        [KeyboardButton("Обучение детей безопасности"), KeyboardButton("Квиз")],
+        [KeyboardButton("Вернуться на главную")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -49,7 +50,8 @@ async def teaching_safety(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 # Функция для обработки квиза
 async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
-        [KeyboardButton("1. Прекратить занятия"), KeyboardButton("2. Убедиться в безопасности")]
+        [KeyboardButton("1. Прекратить занятия"), KeyboardButton("2. Убедиться в безопасности")],
+        [KeyboardButton("Вернуться на главную")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -59,6 +61,11 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "2. Убедиться в безопасности окружающих.",
         reply_markup=reply_markup
     )
+
+# Функция для обработки команды "Вернуться на главную"
+async def back_to_main(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # Возвращаем пользователя на главную
+    await start(update, context)
 
 # Функция для обработки ответа на квиз
 async def quiz_answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -80,6 +87,7 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.Text("Профилактика травм"), prevention))
     application.add_handler(MessageHandler(filters.Text("Обучение детей безопасности"), teaching_safety))
     application.add_handler(MessageHandler(filters.Text("Квиз"), quiz))
+    application.add_handler(MessageHandler(filters.Text("Вернуться на главную"), back_to_main))
     application.add_handler(MessageHandler(filters.Text(["1. Прекратить занятия", "2. Убедиться в безопасности"]), quiz_answer))
 
     # Запуск бота
