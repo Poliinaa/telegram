@@ -5,7 +5,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils import executor
 
 # Укажите токен вашего бота
-API_TOKEN = '7475948235:AAEKG5t-a10ZmqwMH37yQcW2pSc7QaUeuhI'
+API_TOKEN = '7475948235:AAEKG5t-a10ZmqwMH37yQcW2pSc7QaUeuh'
 
 # Логирование
 logging.basicConfig(level=logging.INFO)
